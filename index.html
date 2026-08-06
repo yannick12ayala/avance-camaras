@@ -73,7 +73,7 @@ const CAMS=[1220,311,590,272];  // total oficial de camaras por fase (Fase 1y2 s
 const camsPrefix=new Float64Array(N); let _ca=0; for(let i=0;i<N;i++){_ca+=CAMS[pts[i][2]]/counts[pts[i][2]];camsPrefix[i]=_ca;} const totalCams=CAMS.reduce((a,b)=>a+b,0);
 
 // --- mapa satelital ---
-const map=L.map('map',{zoomControl:true,attributionControl:true,preferCanvas:true}).setView([-34.46,-58.91],12);
+const map=L.map('map',{zoomControl:true,attributionControl:true,preferCanvas:true,zoomAnimation:false,markerZoomAnimation:false,fadeAnimation:false}).setView([-34.46,-58.91],12);
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Imágenes © Esri'}).addTo(map);
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,opacity:.8}).addTo(map);
 // limite del Partido de Pilar
