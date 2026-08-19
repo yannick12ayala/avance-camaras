@@ -105,7 +105,7 @@ STAGES.forEach((s,i)=>{
 
 let revealed=0, elapsed=0, paused=false, last=performance.now(), raf;
 const appear=new Float64Array(N).fill(-1);
-const CARD_MS=2400;
+const CARD_MS=3200;
 const PER_MARK=8;   // ms por pin (muchos pines)
 // duracion total = suma de (pines * PER_MARK) + (STAGES.length * (CARD_MS + 900))
 const DUR = N*PER_MARK + STAGES.length*(CARD_MS+900);
@@ -148,16 +148,17 @@ async function runTimeline(){
     await showYearCard(i);
     if(!running) return;
     const from=stageStartIdx[i], to=from+counts[i];
-    const batch=Math.max(1,Math.floor(counts[i]/60));
+    // batches mas chicos = mas suave y lento
+    const batch=Math.max(1,Math.floor(counts[i]/140));
     for(let j=from;j<to;j+=batch){
       if(!running) return;
       const endB=Math.min(to,j+batch);
       for(let k=j;k<endB;k++){ appear[k]=performance.now(); revealed=k+1; }
       paint();
-      await sleep(45);
+      await sleep(90);
     }
     highlightStage(i,true);
-    await sleep(500);
+    await sleep(1100);
   }
   document.getElementById('play').textContent='▶ Reproducir';
   running=false;
